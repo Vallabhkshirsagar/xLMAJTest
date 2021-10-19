@@ -21,7 +21,13 @@ jobs:
         with:
           dotnet-version: '3.1.301'
           include-prerelease: true
-
+          
+      - name: Update database
+        run: |
+            dotnet tool install --global dotnet-ef
+            dotnet tool restore
+            dotnet ef database update -c DataContext -p MyProj -s MyProjFactory
+      
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
